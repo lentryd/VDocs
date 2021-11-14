@@ -1,17 +1,39 @@
-name: Build and Deploy
+name: Генерация github-page
 on: [push]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@master
-
-    - name: Build
-      uses: jenkey2011/vuepress-deploy@master
-      env:
-        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TARGET_REPO: lentryd/VDocs
-        TARGET_BRANCH: gh-pages
-        BUILD_SCRIPT: yarn && yarn build
-        BUILD_DIR: dist
+      uses: actions/checkout@v2.4.0
+      with:
+          ref: "main"
+          repository: "lentryd/VDocs"
+          
+    - name: Delete default .env
+      run: rm .env
+        
+    - name: Installing Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        
+    - name: Installing dependencies
+      run: npm ci
+      
+    - name: Build project
+      env: 
+        VUE_APP_GH_REPO: ${{ github.event.repository.name }}
+        VUE_APP_GH_OWNER: ${{ github.repository_owner }}
+        VUE_APP_GH_BRANCH: ${{ github.ref_name }}
+      run: npm run build
+      
+    - name: Push dist
+      run: |
+        cd dist
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        git init
+        git add -A
+        git commit -m 'update content'
+        git push -f https://${{ github.repository_owner }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git master:gh-pages
