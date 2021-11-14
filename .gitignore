@@ -2,6 +2,8 @@
 node_modules
 /dist
 
+/src/pages/
+/src/paths.json
 
 # local env files
 .env.local
