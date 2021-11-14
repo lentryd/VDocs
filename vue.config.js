@@ -24,8 +24,8 @@ module.exports = {
     },
 
     manifestOptions: {
-      display: "landscape",
-      background_color: "#42B883",
+      display: "standalone",
+      background_color: "#17181C",
       icons: [
         {
           src: "./img/icons/android-chrome-192x192.png",
