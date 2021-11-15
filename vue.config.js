@@ -12,7 +12,7 @@ module.exports = {
     });
   },
   pwa: {
-    name: "VDocs",
+    name: process.env.VUE_APP_GH_REPO,
     themeColor: "#17181C",
     msTileColor: "#17181C",
     iconPaths: {
