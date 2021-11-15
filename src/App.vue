@@ -12,7 +12,17 @@
 import { defineComponent } from "vue";
 export default defineComponent({
   methods: {
-    parseLink(e: MouseEvent) {
+    setTheme() {
+      document
+        .querySelector("meta[name=theme-color]")
+        ?.setAttribute(
+          "content",
+          getComputedStyle(document.body)
+            ?.getPropertyValue("--blob-header-background")
+            ?.trim()
+        );
+    },
+    navigation(e: MouseEvent) {
       const target = e.target as HTMLInputElement;
       if (target.tagName !== "A") return false;
 
@@ -31,7 +41,11 @@ export default defineComponent({
   },
 
   mounted() {
-    window.addEventListener("click", this.parseLink);
+    this.setTheme();
+    window.addEventListener("click", this.navigation);
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", this.setTheme);
   },
 });
 </script>
