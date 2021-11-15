@@ -42,6 +42,7 @@ module.exports = {
 
     workboxPluginMode: "GenerateSW",
     workboxOptions: {
+      navigateFallback: "index.html",
       runtimeCaching: [
         {
           urlPattern: /^http.*github/,
