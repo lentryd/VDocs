@@ -35,7 +35,8 @@
   .hljs-selector-attr,
   .hljs-selector-class,
   .hljs-selector-id,
-  .hljs-variable {
+  .hljs-variable,
+  .hljs-property {
     color: #005cc5;
   }
   .hljs-meta .hljs-string,
@@ -123,7 +124,8 @@
   .hljs-selector-attr,
   .hljs-selector-class,
   .hljs-selector-id,
-  .hljs-variable {
+  .hljs-variable,
+  .hljs-property {
     color: #79c0ff;
   }
   .hljs-meta .hljs-string,
