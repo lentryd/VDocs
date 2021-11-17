@@ -1,8 +1,8 @@
 module.exports = {
-  publicPath:
-    process.env.NODE_ENV === "production"
-      ? "/" + process.env.VUE_APP_GH_REPO + "/"
-      : "/",
+  publicPath: "/",
+  // process.env.NODE_ENV === "production"
+  //   ? "/" + process.env.VUE_APP_GH_REPO + "/"
+  //   : "/",
   productionSourceMap: false,
   chainWebpack: (config) => {
     config.plugin("html").tap((args) => {
@@ -42,6 +42,8 @@ module.exports = {
 
     workboxPluginMode: "GenerateSW",
     workboxOptions: {
+      skipWaiting: true,
+      clientsClaim: true,
       navigateFallback: "index.html",
       runtimeCaching: [
         {
