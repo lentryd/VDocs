@@ -57,6 +57,6 @@ runs:
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
         git init
         git add -A
-        git commit -m update content
+        git commit -m "update content"
         git push -f  https://${{ inputs.username }}:${{ inputs.token }}@github.com/${{ inputs.username }}/${{ inputs.reponame }}.git master:gh-pages
       shell: sh
