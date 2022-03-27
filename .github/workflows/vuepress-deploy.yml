@@ -10,4 +10,4 @@ jobs:
         username: ${{ github.repository_owner }}
         reponame: ${{ github.event.repository.name }}
         branch: ${{ github.ref_name }}
-        token: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
+        token: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged.
