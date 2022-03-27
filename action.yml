@@ -20,7 +20,7 @@ inputs:
     description: Your Github token
 
 runs:
-    using: ubuntu-latest
+    using: composite
     steps:
     - name: Checkout
       uses: actions/checkout@v2.4.0
@@ -30,6 +30,7 @@ runs:
           
     - name: Delete default .env
       run: rm .env
+      shell: sh
         
     - name: Installing Node.js
       uses: actions/setup-node@v2
@@ -38,6 +39,7 @@ runs:
         
     - name: Installing dependencies
       run: npm ci
+      shell: sh
       
     - name: Build project
       env: 
@@ -45,6 +47,7 @@ runs:
         VUE_APP_GH_OWNER: ${{ inputs.username }}
         VUE_APP_GH_BRANCH: ${{ inputs.branch }}
       run: npm run build
+      shell: sh
       
     - name: Push dist
       run: |
@@ -56,3 +59,4 @@ runs:
         git add -A
         git commit -m update content
         git push -f  https://${{ inputs.username }}:${{ inputs.token }}@github.com/${{ inputs.username }}/${{ inputs.reponame }}.git master:gh-pages
+      shell: sh
