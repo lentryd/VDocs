@@ -20,7 +20,7 @@ inputs:
     description: Your Github token
 
 runs:
-    using: ubuntu-latest
+    using: "composite"
     steps:
     - name: Checkout
       uses: actions/checkout@v2.4.0
