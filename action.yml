@@ -1,0 +1,58 @@
+name: Generation github-page
+author: lentryd
+branding:
+  icon: book-open
+  color: white
+description: GitHub action to create and publish a repository description to GitHub pages
+
+inputs:
+  username:
+    required: true
+    description: Your username
+  reponame:
+    required: true
+    description: Your reponame
+  branch:
+    required: true
+    description: Your branch
+  token:
+    required: true
+    description: Your Github token
+
+runs:
+    using: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.4.0
+      with:
+          ref: "main"
+          repository: "lentryd/VDocs"
+          
+    - name: Delete default .env
+      run: rm .env
+        
+    - name: Installing Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+        
+    - name: Installing dependencies
+      run: npm ci
+      
+    - name: Build project
+      env: 
+        VUE_APP_GH_REPO: ${{ inputs.reponame }}
+        VUE_APP_GH_OWNER: ${{ inputs.username }}
+        VUE_APP_GH_BRANCH: ${{ inputs.branch }}
+      run: npm run build
+      
+    - name: Push dist
+      run: |
+        cd dist
+        cp index.html 404.html
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        git init
+        git add -A
+        git commit -m update content
+        git push -f  https://${{ inputs.username }}:${{ inputs.token }}@github.com/${{ inputs.username }}/${{ inputs.reponame }}.git master:gh-pages
