@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Build-Vue
-      uses: lentryd/VDocs@v1
+      uses: lentryd/VDocs@1
       with:
         username: ${{ github.repository_owner }}
         reponame: ${{ github.event.repository.name }}
