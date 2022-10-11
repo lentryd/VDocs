@@ -14,6 +14,7 @@
     "vdocs-vue": "^1.1.7",
     "vue": "^3.2.4",
     "vue-class-component": "^8.0.0-0",
+    "vue-gtag": "^2.0.1",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {

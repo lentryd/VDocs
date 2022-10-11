@@ -15,6 +15,9 @@ inputs:
   branch:
     required: true
     description: Your branch
+  gtag:
+    required: false
+    description: Your google analytic tag
   token:
     required: true
     description: Your Github token
@@ -43,6 +46,7 @@ runs:
       
     - name: Build project
       env: 
+        VUE_APP_G_TOKEN: ${{ inputs.gtag }}
         VUE_APP_GH_REPO: ${{ inputs.reponame }}
         VUE_APP_GH_OWNER: ${{ inputs.username }}
         VUE_APP_GH_BRANCH: ${{ inputs.branch }}

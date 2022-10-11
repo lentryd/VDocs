@@ -26,4 +26,5 @@ jobs:
 | username |           Your username          |        -       |     ✅    |
 | reponame |       Your repository name       |        -       |     ✅    |
 |  branch  |      Your repository branch      |        -       |     ✅    |
+|   gtag   |     Your google analytic tag     |        -       |     ❎    |
 |  token   | Please leave this line unchanged |        -       |     ✅    |
