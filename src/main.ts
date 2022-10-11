@@ -11,6 +11,6 @@ const app = createApp(App);
 app.use(router);
 
 if (process.env.VUE_APP_G_TOKEN)
-  app.use(Gtag, { config: { id: process.env.VUE_APP_G_TOKEN } });
+  app.use(Gtag, { config: { id: process.env.VUE_APP_G_TOKEN } }, router);
 
 app.mount("#app");
