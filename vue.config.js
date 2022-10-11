@@ -11,6 +11,16 @@ module.exports = {
       return args;
     });
   },
+  configureWebpack: {
+    module: {
+      rules: [
+        {
+          test: /\.(png|jpe?g|gif|svg|ico)$/i, // (1)
+          type: "file-loader",
+        },
+      ],
+    },
+  },
   pwa: {
     name: process.env.VUE_APP_GH_REPO,
     themeColor: "#17181C",
