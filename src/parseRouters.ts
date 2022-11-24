@@ -1,5 +1,4 @@
 import { RouteRecordRaw } from "vue-router";
-import { defineAsyncComponent, DefineComponent } from "vue";
 
 const EXT_REGEX = /(?!^)\..*$/;
 const DIR_REGEX = /\/(.*?)\//;
@@ -8,15 +7,28 @@ function parseFile(paths: string[], rootPath = "/"): RouteRecordRaw[] {
   return paths.map((p) => {
     p = rootPath + p.replace(/^\//, "");
 
+    let path = p;
     const name = require("@/pages" + p)?.default?.name ?? "";
     const ext = name.match(EXT_REGEX)?.[0] ?? "";
-    const path = p.replace(EXT_REGEX, ext).replaceAll("$1", ".");
+    const isImage = !name && !ext;
+    if (!isImage) path = path.replace(EXT_REGEX, ext);
+    path = path.replaceAll("$1", ".");
 
-    return {
-      path,
-      meta: { name, isMD: ext === ".md" },
-      component: () => import("@/pages" + p),
-    };
+    return !isImage
+      ? {
+          path,
+          meta: { name, isMD: ext === ".md" },
+          component: () => import("@/pages" + p),
+        }
+      : {
+          path,
+          meta: {
+            name: p.replace(/^.*[\\\/]/, ""),
+            isMD: true,
+            image: require("@/pages" + p),
+          },
+          component: () => import("@/components/ImageViewer.vue"),
+        };
   });
 }
 
@@ -61,7 +73,7 @@ function parseDir(paths: string[], dir = "", rootPath = "/"): RouteRecordRaw[] {
   ];
 }
 
-export default function(paths: string[]) {
+export default function (paths: string[]) {
   return parseDir(paths).map((p) => ({
     ...p,
     path: p.path.replace(/^\//, ""),

@@ -2,7 +2,7 @@ import parseDir from "./parseRouters";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 const paths = require
-  .context("@/pages", true, /\.vue$/)
+  .context("@/pages", true, /\.\w+$/)
   .keys()
   .map((p) => p.replace(/^\./, ""));
 
