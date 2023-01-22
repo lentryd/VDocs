@@ -9,7 +9,7 @@ module.exports = {
       args[0].title = process.env.VUE_APP_GH_REPO;
       args[0].author = process.env.VUE_APP_GH_OWNER;
       args[0].reponame =
-        process.env.VUE_APP_GH_OWNER + "/" + process.env.VUE_APP_GH_OWNER;
+        process.env.VUE_APP_GH_OWNER + "/" + process.env.VUE_APP_GH_REPO;
       return args;
     });
   },
